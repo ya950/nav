@@ -62,6 +62,60 @@ function isSubmissionEnabled(env) {
   return normalized === 'true';
 }
 
+// ========== 备用随机 SVG 图标 ==========
+const fallbackSVGIcons = [
+  `<svg width="80" height="80" viewBox="0 0 24 24" fill="url(#gradient1)" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="#7209b7" />
+         <stop offset="100%" stop-color="#4cc9f0" />
+       </linearGradient>
+     </defs>
+     <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/>
+   </svg>`,
+  `<svg width="80" height="80" viewBox="0 0 24 24" fill="url(#gradient2)" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="#4361ee" />
+         <stop offset="100%" stop-color="#4cc9f0" />
+       </linearGradient>
+     </defs>
+     <circle cx="12" cy="12" r="10"/>
+     <path d="M12 7v5l3.5 3.5 1.42-1.42L14 11.58V7h-2z" fill="#fff"/>
+   </svg>`,
+  `<svg width="80" height="80" viewBox="0 0 24 24" fill="url(#gradient3)" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="#7209b7" />
+         <stop offset="100%" stop-color="#4361ee" />
+       </linearGradient>
+     </defs>
+     <path d="M12 .587l3.668 7.431L24 9.172l-6 5.843 1.416 8.252L12 19.771l-7.416 3.496L6 15.015 0 9.172l8.332-1.154z"/>
+   </svg>`,
+  `<svg width="80" height="80" viewBox="0 0 24 24" fill="url(#gradient4)" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="#f72585" />
+         <stop offset="100%" stop-color="#4361ee" />
+       </linearGradient>
+     </defs>
+     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+   </svg>`,
+  `<svg width="80" height="80" viewBox="0 0 24 24" fill="url(#gradient5)" xmlns="http://www.w3.org/2000/svg">
+     <defs>
+       <linearGradient id="gradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="#4cc9f0" />
+         <stop offset="100%" stop-color="#4361ee" />
+       </linearGradient>
+     </defs>
+     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+   </svg>`,
+];
+
+function getRandomSVG() {
+  return fallbackSVGIcons[Math.floor(Math.random() * fallbackSVGIcons.length)];
+}
+
 // ========== 会话管理 ==========
 const SESSION_COOKIE_NAME = 'nav_admin_session';
 const SESSION_PREFIX = 'session:';
@@ -2117,7 +2171,6 @@ function renderCategoriesWithSites(categories, categoryMap, categoryOrderMap) {
           dragClass: 'sortable-drag',
           onEnd: function(evt) {
               saveOrderBtn.style.display = 'inline-block';
-              saveOrderBtn.style.backgroundColor = '#dc3545';
           }
       });
   });
@@ -4040,7 +4093,8 @@ async function handleRequest(request, env, ctx) {
               displayLogo = `<img src="${escapeHTML(faviconUrl)}" alt="${safeName}" class="w-12 h-12 rounded object-cover lazy-image" data-src="${escapeHTML(faviconUrl)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                    <div class="w-12 h-12 rounded-lg bg-primary-600 flex items-center justify-center text-white font-semibold text-lg shadow-inner" style="display:none;">${cardInitial}</div>`;
             } else {
-              displayLogo = `<div class="w-12 h-12 rounded-lg bg-primary-600 flex items-center justify-center text-white font-semibold text-lg shadow-inner">${cardInitial}</div>`;
+              // 使用随机SVG图标
+              displayLogo = `<div class="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">${getRandomSVG()}</div>`;
             }
             
             return `
