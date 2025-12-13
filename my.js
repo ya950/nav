@@ -3151,23 +3151,7 @@ async function handleRequest(request, env, ctx) {
     <!-- 搜索区域 -->
     <header class="bg-white shadow-sm p-4 sticky top-0 z-10">
       <div class="max-w-4xl mx-auto flex flex-col items-center gap-4">
-        <!-- 左侧：标题和统计 -->
-        <div class="flex items-center gap-4 w-full">
-          <h1 class="text-xl font-bold flex items-center gap-2">
-            <span id="categoryTitle">暂无书签数据</span>
-            <span class="text-sm font-normal text-gray-500">(<span id="siteCount">0</span>)</span>
-          </h1>
-          <div class="ml-auto flex items-center gap-2">
-            <button id="enableDragSort" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <span class="text-sm text-gray-500">拖拽排序</span>
-          </div>
-        </div>
-        
-        <!-- 中间：搜索框 -->
+        <!-- 搜索框 -->
         <div class="relative w-full max-w-2xl">
           <input id="mainSearchInput" type="text" placeholder="搜索..." 
                  class="w-full px-4 py-2 pr-24 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
@@ -3986,29 +3970,9 @@ async function handleRequest(request, env, ctx) {
   <main class="main-content lg:ml-64 min-h-screen transition-all duration-300">
     <!-- 搜索区域 -->
     <header class="bg-white shadow-sm p-4 sticky top-0 z-10">
-      <div class="max-w-4xl mx-auto flex items-center justify-between gap-4">
-        <!-- 左侧：标题和统计 -->
-        <div class="flex items-center gap-4">
-          <h1 class="text-xl font-bold flex items-center gap-2">
-            <span id="categoryTitle">${titleText}</span>
-            <span class="text-sm font-normal text-gray-500">(<span id="siteCount">${titleCount}</span>)</span>
-          </h1>
-        </div>
-        
-        <!-- 右侧：拖拽排序 -->
-        <div class="flex items-center gap-2">
-          <button id="enableDragSort" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <span class="text-sm text-gray-500">拖拽排序</span>
-        </div>
-      </div>
-      
-      <!-- 搜索框 -->
-      <div class="max-w-2xl mx-auto w-full">
-        <div class="relative">
+      <div class="max-w-4xl mx-auto flex flex-col items-center gap-4">
+        <!-- 搜索框 -->
+        <div class="relative w-full max-w-2xl">
           <input id="mainSearchInput" type="text" placeholder="搜索..." 
                  class="w-full px-4 py-2 pr-24 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
           <div class="absolute right-0 top-0 h-full flex items-center">
@@ -4056,6 +4020,22 @@ async function handleRequest(request, env, ctx) {
     
     <!-- 网站列表 -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <!-- 分类标题和拖拽排序按钮 -->
+      <div class="mb-6 flex items-center justify-between">
+        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <span id="categoryTitle">${titleText}</span>
+          <span class="text-sm font-normal text-gray-500">(<span id="siteCount">${titleCount}</span>)</span>
+        </h2>
+        <div class="flex items-center gap-2">
+          <button id="enableDragSort" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <span class="text-sm text-gray-500">拖拽排序</span>
+        </div>
+      </div>
+      
       <div class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
         <div id="sitesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           ${currentSites.map((site) => {
